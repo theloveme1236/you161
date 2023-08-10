@@ -30,7 +30,7 @@ cluster = MongoClient('mongodb+srv://theloveme1238:zx5LtPcgLpcpIh7D@cluster0.pzu
 db = cluster["my_database"]
 collection = db["users"]        
 options = webdriver.ChromeOptions()
-#options.add_argument('--headless')
+options.add_argument('--headless')
 options.add_argument("--no-sandbox")
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--lang=en')
