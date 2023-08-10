@@ -1,11 +1,11 @@
 import os
 os.system('sudo apt update -y')
-os.system('sudo apt install python3-pip -y')
-os.system('sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
-os.system('sudo apt install ./google-chrome-stable_current_amd64.deb -y')
-os.system('pip install selenium')
-os.system('pip install pymongo')
-os.system('pip install webdriver_manager')
+os.system('! sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
+os.system('! sudo apt install ./google-chrome-stable_current_amd64.deb')
+os.system('! sudo pip install selenium')
+os.system('! sudo pip install pymongo')
+os.system('! sudo pip install webdriver-manager')
+
 import subprocess
 import time
 from selenium.webdriver.common.keys import Keys
@@ -30,7 +30,7 @@ cluster = MongoClient('mongodb+srv://theloveme1238:zx5LtPcgLpcpIh7D@cluster0.pzu
 db = cluster["my_database"]
 collection = db["users"]        
 options = webdriver.ChromeOptions()
-#options.add_argument('--headless')
+options.add_argument('--headless')
 options.add_argument("--no-sandbox")
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--lang=en')
@@ -220,7 +220,7 @@ for cookies_totel in os.listdir(os.getcwd()):
         cookis_like()
 def limeit_all_ike4like():
     global driver
-    if Subscribe_erro_stop_time == 'stop' and like_erro_stop_time == 'stop':
+    if like_erro_stop_time == 'stop':#Subscribe_erro_stop_time == 'stop' and 
         
         email_to_find = email
         user_data = collection.find_one({"email": email_to_find})
@@ -243,10 +243,12 @@ def check_driver_open():
 def no_Window_driver():
     global driver
     print('NoSuchWindowException_stop')
-    options = uc.ChromeOptions()
+    options = webdriver.ChromeOptions()
     options.add_argument('--headless')
+    options.add_argument("--no-sandbox")
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--lang=en')
-    driver = uc.Chrome(options=options)
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
     driver.implicitly_wait(10)
     driver.maximize_window()
     driver.get("https://www.like4like.org/#social-media-platform-list")
@@ -379,11 +381,11 @@ def like_erro():
     try:
         if like_erro_stop_time == 'stop':
             print('Subscribe__stop_time_NoSuchElementException')
-            Subscribe()
+            #Subscribe()
         con_like+=1
         if con_like == 5:
             print('con_like')
-            Subscribe()
+            #Subscribe()
         driver.switch_to.window(driver.window_handles[0])
         driver.get("https://www.like4like.org/earn-credits.php?feature=youtube")
         time.sleep(10)
@@ -404,18 +406,17 @@ def like():
             
             driver.maximize_window()
             driver.implicitly_wait(15)
+            time.sleep(random.randrange(10, 30))
             #driver.execute_script("window.scrollTo(0, document.body.scrollHeight/1);")
-
-            time.sleep(random.randrange(3, 7))
             driver.find_element(By.CSS_SELECTOR, "a[class^='cursor earn_pages_button profile_view_img']").click()
             driver.switch_to.window(driver.window_handles[1])
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
             driver.find_element(By.ID, 'segmented-like-button').click()
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
             driver.save_screenshot('like_{}.png'.format(s))
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
             driver.find_element(By.CSS_SELECTOR, '[alt="Click On The Button To Confirm Interaction!"]').click()
             email_to_find = email
             user_data = collection.find_one({"email": email_to_find})
@@ -445,4 +446,4 @@ def like():
             like_erro()
 
 
-Subscribe()
+like()
