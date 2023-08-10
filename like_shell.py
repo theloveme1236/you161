@@ -30,7 +30,7 @@ cluster = MongoClient('mongodb+srv://theloveme1238:zx5LtPcgLpcpIh7D@cluster0.pzu
 db = cluster["my_database"]
 collection = db["users"]        
 options = webdriver.ChromeOptions()
-options.add_argument('--headless')
+#options.add_argument('--headless')
 options.add_argument("--no-sandbox")
 options.add_argument('--disable-dev-shm-usage')
 options.add_argument('--lang=en')
@@ -328,18 +328,20 @@ def Subscribe():
             driver.maximize_window()
             driver.implicitly_wait(15)
             #driver.execute_script("window.scrollTo(0, document.body.scrollHeight/1);")
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5,  10))
             driver.find_element(By.CSS_SELECTOR, "a[class^='cursor earn_pages_button profile_view_img']").click()
             driver.switch_to.window(driver.window_handles[1])
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
             driver.find_element(By.ID, 'subscribe-button').click()            
             
-            
+            driver.refresh()
+            time.sleep(random.randrange(2, 5))
             driver.save_screenshot('sub_{}.png'.format(s))
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
+            
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
-            time.sleep(random.randrange(3, 7))
+            time.sleep(random.randrange(5, 10))
             driver.find_element(By.CSS_SELECTOR, '[alt="Click On The Button To Confirm Interaction!"]').click()
             email_to_find = email
             user_data = collection.find_one({"email": email_to_find})
@@ -379,11 +381,11 @@ def like_erro():
     try:
         if like_erro_stop_time == 'stop':
             print('Subscribe__stop_time_NoSuchElementException')
-            Subscribe()
+            #Subscribe()
         con_like+=1
         if con_like == 5:
             print('con_like')
-            Subscribe()
+            #Subscribe()
         driver.switch_to.window(driver.window_handles[0])
         driver.get("https://www.like4like.org/earn-credits.php?feature=youtube")
         time.sleep(10)
@@ -445,4 +447,4 @@ def like():
             like_erro()
 
 
-Subscribe()
+like()
