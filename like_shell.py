@@ -1,7 +1,7 @@
 import os
 os.system('sudo apt update -y')
 os.system('sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
-os.system('sudo apt install ./google-chrome-stable_current_amd64.deb')
+os.system('sudo apt install ./google-chrome-stable_current_amd64.deb -y')
 os.system('pip install selenium')
 os.system('pip install pymongo')
 os.system('pip install webdriver-manager')
@@ -72,7 +72,9 @@ def like3like_login():
                 driver.find_element(By.ID, 'username').send_keys(email)
                 time.sleep(2)
                 driver.find_element(By.ID, 'password').send_keys(password)
-                time.sleep(2)
+                time.sleep(5)
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight/1);")
+                time.sleep(5)
                 try:
                     driver.find_element(By.XPATH, '/html/body/div[6]/form/fieldset/table/tbody/tr[8]/td/span').click()
                 except:
